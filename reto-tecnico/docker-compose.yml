@@ -17,8 +17,9 @@ services:
       interval: 10s
       timeout: 2s
       retries: 10
+
   app:
-    image: 'api-rest:latest'
+    image: 'reto-tecnico:latest'
     build:
       context: .
     container_name: app
@@ -34,4 +35,4 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO : create
       SPRING_JPA_SHOW_SQL : true
     ports:
-      - 8082:8082
+      - 8082:8080
