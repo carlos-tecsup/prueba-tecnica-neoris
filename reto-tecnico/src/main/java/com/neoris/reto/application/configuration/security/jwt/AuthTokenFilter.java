@@ -2,6 +2,9 @@ package com.neoris.reto.application.configuration.security.jwt;
 
 import com.neoris.reto.application.service.impl.UsuarioService;
 import com.neoris.reto.application.service.impl.UsuarioServiceImpl;
+import io.reactivex.Completable;
+import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
 	@Autowired
@@ -30,20 +34,23 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		try {
-			String jwt = parseJwt(request);
-			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-				String email = jwtUtils.getEmailFromJwtToken(jwt);
+		String jwt = parseJwt(request);
+		if (jwt != null && jwtUtils.validateJwtToken(jwt).blockingGet()) {
+			String email = jwtUtils.getEmailFromJwtToken(jwt).blockingGet();
 
+			Completable.fromCallable(() -> {
 				UserDetails userDetails = userDetailsService.loadUserByEmail(email);
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 				SecurityContextHolder.getContext().setAuthentication(authentication);
-			}
-		} catch (Exception e) {
-			logger.error("Cannot set user authentication: {}", e);
+				 return Completable.complete();
+			}).subscribe(
+					() -> {
+					},
+					error -> logger.error("Cannot set user authentication: {}", error)
+			);
 		}
 
 		filterChain.doFilter(request, response);
