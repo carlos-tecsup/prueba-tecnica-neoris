@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TipoCambioDto {
+public class TipoCambioDTO {
     private Long id;
     private String monedaOrigen;
     private String monedaDestino;
