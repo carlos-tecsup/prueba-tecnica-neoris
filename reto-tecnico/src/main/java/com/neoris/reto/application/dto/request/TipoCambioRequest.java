@@ -2,10 +2,11 @@ package com.neoris.reto.application.dto.request;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
-@Builder
+@NoArgsConstructor
 public class TipoCambioRequest {
     private String monedaOrigen;
     private String monedaDestino;
