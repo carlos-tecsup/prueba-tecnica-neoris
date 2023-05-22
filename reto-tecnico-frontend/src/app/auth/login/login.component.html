@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+	   <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Login landing page</title>
+</head>
+<body>
+<section class="side">
+	<img src="assets/img/usuario_login.jpg" alt="" style="width: 1500px; height: 400px;">
+</section>
+
+<section class="main">
+	<div class="login-container">
+		<p class="title">Bienvenido</p>
+		<div class="separator"></div>
+
+		<form  class="login-form" 
+                  [formGroup]="loginForm"
+                  (ngSubmit)="loginHome(loginForm.value)"
+                  autocomplete="off"
+                  class="user"
+                >
+                  <div class="form-group">
+                    <input
+                      type="email"
+                      class="form-control form-control-user"
+                      placeholder="Email"
+                      formControlName="email"
+                      [ngClass]="{ 'is-invalid': submit && f['email'].errors }"
+                    />
+                  </div>
+                  <div
+                    *ngIf="submit && f['email'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f['email'].errors['required']">
+                      Es necesario llenar este campo
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="password"
+                      class="form-control form-control-user"
+                      placeholder="Contraseña"
+                      formControlName="password"
+                      [ngClass]="{ 'is-invalid': submit && f['password'].errors }"
+                    />
+                    <div
+                      *ngIf="submit && f['password'].errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f['password'].errors['required']">
+                        Es necesario llenar este campo
+                      </div>
+                    </div>
+                  </div>
+             
+                  <button class="submit" type="submit">Iniciar sesión</button>
+                </form>
+		<div>
+			<span  id="sign-up"> 
+        <a class="small" (click)="goToRegister()">CREAR CUENTA!</a>
+				</span>
+		</div>
+	</div>
+	<script type="text/javascript" src="assets/js/main.js"></script>
+
+</section>
+    
+</body>
+</html>
+

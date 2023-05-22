@@ -1,0 +1,68 @@
+<div id="mainWrapper">
+    <div class="container">
+      <div class="wrapper">
+        <h1 class="text-center text-white mb-5 pb-3" style="border-bottom: 2px solid white;">CAMBIO DE DIVISA</h1>
+  
+        <form [formGroup]="tipoCambioForm">
+          <div class="row">
+            <div class="col-md-5 text-center">
+              <label style="font-size: 25px;margin-bottom: 10px;" for="amount">Monto</label>
+              <div style="position: relative;" class="form-group">
+                <span id="currencyIcon">$</span>
+                <input style="padding-left: 30px;" class="form-control" type="number" placeholder="Monto" id="amount" formControlName="monto">
+              </div>
+            </div>
+  
+            <div class="col-md-3 text-center">
+              <label style="font-size: 25px;margin-bottom: 10px;" for="from">Desde</label>
+              <div class="form-group">
+              
+                  <select class="form-control text-center" id="from" formControlName="monedaOrigen">
+                    <option value="">selecciona moneda origen</option>
+                    <option *ngFor="let moneda of dataMonedaOrigen" [value]="moneda.nombre">{{ moneda.nombre }}</option>
+                  </select>
+               
+              </div>
+        </div>
+        
+        <div class="col-md-1">
+            <div class="iconWrapper">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+        </div>
+        
+        <div class="col-md-3 text-center">
+            <label style="font-size: 25px;margin-bottom: 10px;" for="to">Hacia</label>
+            <div class="form-group">
+                <select class="form-control text-center" id="from" formControlName="monedaDestino">
+                    <option value="">selecciona moneda destino</option>
+                    <option *ngFor="let moneda of dataMonedaDestino" [value]="moneda.nombre">{{ moneda.nombre }}</option>
+                  </select>
+              </div>
+         </div>
+            <div class="error-message text-center" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+          </div>
+  
+          <div class="buttonWrapper mt-5">
+            <div class="row">
+  
+              <div class="col">
+                <input id="calculate" type="submit" class="btn btn-success w-100" value="CALCULAR" (click)="calculateTipoCambio()" >
+              </div>
+            </div>
+          </div>
+        </form>
+  
+        <div *ngIf="hasData">
+            <div class="col-md-4 alert alert-info mt-5 text-center" style="margin: 0 auto;">
+                1 {{monedaOrigen}} equivale a {{tipoCambio}} {{monedaDestino}}
+              </div>
+              <div class=" col-md-4 alert alert-success mt-5 text-center" style="margin: 0 auto;">
+                {{monto}} {{monedaOrigen}} equivale a {{montoTipoCambio}} {{monedaDestino}}
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,35 @@
+
+
+div#mainWrapper{
+	background:url(../.././assets/img/cambio_moneda.jpg);
+    background-size: cover;
+    background-position: center center;
+    padding: 247px 0px;
+}
+div.wrapper{
+    margin: auto;
+    padding: 70px 40px;
+    background:rgba(255, 255, 255, 0.281);
+    color: white;
+    border-radius: 10px;
+    border: 1px solid tomato;
+}
+
+div.iconWrapper{
+    text-align: center;
+}
+
+div.iconWrapper i{
+    font-size: 30px;
+    color: turquoise;
+    margin-top: 50px;
+}
+
+span{
+    color: black; position: absolute; top: 4px;left:9px;font-size: 20px;font-weight: 900;
+}
+
+.error-message{
+    color: red;
+    
+}
